@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
@@ -39,6 +40,7 @@ public class PantryFragment extends Fragment {
     private final ActivityResultLauncher<Intent> editorLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), this::onEditorResult);
 
+    private PantryViewModel viewModel;
     private PantryAdapter adapter;
     private Prefs prefs;
     private View fab;
@@ -69,8 +71,19 @@ public class PantryFragment extends Fragment {
         fab.setOnClickListener(v -> openEditor(PantryItem.NO_ID));
         view.findViewById(R.id.empty_add_button).setOnClickListener(v -> openEditor(PantryItem.NO_ID));
 
-        PantryViewModel viewModel = new ViewModelProvider(this).get(PantryViewModel.class);
+        viewModel = new ViewModelProvider(this).get(PantryViewModel.class);
         viewModel.getItems().observe(getViewLifecycleOwner(), this::render);
+        new ItemTouchHelper(new SwipeToDeleteCallback(requireContext(),
+                position -> deleteWithUndo(adapter.getItemAt(position)))).attachToRecyclerView(list);
+    }
+
+    // Delete straight away; Undo re-inserts the same row with its original id.
+    private void deleteWithUndo(PantryItem item) {
+        viewModel.delete(item);
+        Snackbar.make(requireView(), getString(R.string.snackbar_deleted_named, item.getName()), Snackbar.LENGTH_LONG)
+                .setAnchorView(fab)
+                .setAction(R.string.action_undo, v -> viewModel.restore(item))
+                .show();
     }
 
     // Explicit Intent; the item id travels as an extra so the editor knows which row to load.

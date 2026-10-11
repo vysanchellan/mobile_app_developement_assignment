@@ -26,4 +26,13 @@ public class PantryViewModel extends AndroidViewModel {
     public LiveData<List<PantryItem>> getItems() {
         return repository.getPantryItems();
     }
+
+    public void delete(PantryItem item) {
+        repository.delete(item.getId());
+    }
+
+    /** Puts back an item deleted by swipe, keeping its original id. */
+    public void restore(PantryItem item) {
+        repository.restore(item);
+    }
 }
