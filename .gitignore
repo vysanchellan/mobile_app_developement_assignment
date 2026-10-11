@@ -1,0 +1,30 @@
+# Gradle and build output
+.gradle/
+build/
+**/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Local configuration (SDK path is machine specific)
+local.properties
+
+# IDE files
+.idea/
+*.iml
+.navigation/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# OS noise
+.DS_Store
+Thumbs.db
+
+# Submission artefacts (never committed)
+submission/
+*.zip
+*.mp4
+*.mov
+*.docx
+*.pdf
+*.apk
+*.aab

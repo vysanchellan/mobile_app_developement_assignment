@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Launcher glyph: a pantry jar with a leaf on the lid. Drawn inside the 66dp safe zone. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Lid -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M40,36h28a3,3 0,0 1,3 3v4a3,3 0,0 1,-3 3H40a3,3 0,0 1,-3 -3v-4a3,3 0,0 1,3 -3z" />
+    <!-- Jar body -->
+    <path
+        android:fillColor="#FAF7F2"
+        android:pathData="M39,48h30a4,4 0,0 1,4 4v18a8,8 0,0 1,-8 8H43a8,8 0,0 1,-8 -8V52a4,4 0,0 1,4 -4z" />
+    <!-- Label band -->
+    <path
+        android:fillColor="#E4572E"
+        android:pathData="M35,58h38v8H35z" />
+    <!-- Leaf on the lid -->
+    <path
+        android:fillColor="#A5D6A7"
+        android:pathData="M54,36c0,-8 6,-12 14,-12c0,8 -6,12 -14,12z" />
+</vector>
