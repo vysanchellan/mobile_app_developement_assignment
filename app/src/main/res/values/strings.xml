@@ -6,6 +6,11 @@
     <string name="nav_recipes">Recipes</string>
     <string name="nav_settings">Settings</string>
 
+    <!-- Screen titles -->
+    <string name="title_pantry">My pantry</string>
+    <string name="title_recipes">Recipes</string>
+    <string name="title_settings">Settings</string>
+
     <!-- Common actions -->
     <string name="action_save">Save</string>
     <string name="action_delete">Delete</string>
