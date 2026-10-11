@@ -4,8 +4,10 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.vysan.smartpantry.data.model.Recipe;
+
 /**
- * Owns the SQLite database file (smart_pantry.db): creates the three tables on first run.
+ * Owns the SQLite database file (smart_pantry.db): creates the three tables and seeds the recipes on first run.
  * The SQL below is kept identical to docs/schema.sql. One shared instance is used app-wide.
  */
 public final class DatabaseHelper extends SQLiteOpenHelper {
@@ -89,6 +91,9 @@ public final class DatabaseHelper extends SQLiteOpenHelper {
             db.execSQL(SQL_CREATE_RECIPE_INGREDIENTS);
             db.execSQL(SQL_INDEX_PANTRY);
             db.execSQL(SQL_INDEX_RECIPE);
+            for (Recipe recipe : SeedData.recipes()) {
+                RecipeDao.insert(db, recipe);   // 20 seed recipes, all or nothing
+            }
             db.setTransactionSuccessful();
         } finally {
             db.endTransaction();
