@@ -80,9 +80,9 @@ public final class PantryRepository {
         });
     }
 
-    public void delete(PantryItem item) {
+    public void delete(long id) {
         executor.execute(() -> {
-            pantryDao.delete(item.getId());
+            pantryDao.delete(id);
             pantryItems.postValue(pantryDao.getAll());
         });
     }

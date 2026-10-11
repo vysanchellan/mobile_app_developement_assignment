@@ -38,6 +38,41 @@
         <item quantity="other">%d expired</item>
     </plurals>
 
+    <string name="snackbar_added">Ingredient added</string>
+    <string name="snackbar_updated">Ingredient updated</string>
+    <string name="snackbar_deleted">Ingredient deleted</string>
+
+    <!-- Add / edit ingredient -->
+    <string name="title_add_item">Add ingredient</string>
+    <string name="title_edit_item">Edit ingredient</string>
+    <string name="action_back">Navigate back</string>
+    <string name="action_delete_ingredient">Delete ingredient</string>
+    <string name="action_keep_editing">Keep editing</string>
+    <string name="field_name">Ingredient name</string>
+    <string name="field_name_helper">For example Eggs or Cheddar cheese</string>
+    <string name="field_quantity">Quantity</string>
+    <string name="field_quantity_helper">More than 0</string>
+    <string name="field_unit">Unit</string>
+    <string name="field_unit_helper">g, ml, pcs…</string>
+    <string name="field_expiry">Expiry date (optional)</string>
+    <string name="field_expiry_helper">Leave empty if it does not expire</string>
+    <string name="field_expiry_pick">Choose expiry date</string>
+    <string name="field_expiry_clear">Clear expiry date</string>
+    <string name="error_name_required">Enter an ingredient name</string>
+    <string name="error_name_too_long">Use 40 characters or fewer</string>
+    <string name="error_name_invalid">Use letters, spaces and hyphens only</string>
+    <string name="error_quantity_required">Enter a quantity</string>
+    <string name="error_quantity_number">Enter a number, e.g. 2 or 0.5</string>
+    <string name="error_quantity_positive">Quantity must be more than 0</string>
+    <string name="error_quantity_too_large">Quantity must be 100000 or less</string>
+    <string name="error_unit_required">Choose a unit</string>
+    <string name="error_expiry_past">Expiry date cannot be in the past</string>
+    <string name="item_missing">This ingredient no longer exists</string>
+    <string name="dialog_delete_title">Delete ingredient?</string>
+    <string name="dialog_delete_message">%s will be removed from your pantry.</string>
+    <string name="dialog_discard_title">Discard changes?</string>
+    <string name="dialog_discard_message">Your changes to this ingredient will be lost.</string>
+
     <!-- Expiry chips -->
     <string name="chip_expired">Expired</string>
     <string name="chip_today">Expires today</string>

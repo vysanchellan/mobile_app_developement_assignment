@@ -1,5 +1,7 @@
 package com.vysan.smartpantry.ui.pantry;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -7,6 +9,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -15,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.color.MaterialColors;
+import com.google.android.material.snackbar.Snackbar;
 import com.vysan.smartpantry.R;
 import com.vysan.smartpantry.data.model.PantryItem;
 import com.vysan.smartpantry.logic.ExpiryHelper;
@@ -29,8 +35,13 @@ import java.util.List;
  */
 public class PantryFragment extends Fragment {
 
+    /** Opens Add/Edit and receives its result; must be registered before the fragment starts. */
+    private final ActivityResultLauncher<Intent> editorLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), this::onEditorResult);
+
     private PantryAdapter adapter;
     private Prefs prefs;
+    private View fab;
     private RecyclerView list;
     private View emptyState;
     private MaterialCardView banner;
@@ -52,10 +63,31 @@ public class PantryFragment extends Fragment {
         bannerIcon = view.findViewById(R.id.summary_icon);
 
         adapter = new PantryAdapter(prefs.getEffectiveSoonWindow());
+        adapter.setOnItemClickListener(item -> openEditor(item.getId()));
         list.setAdapter(adapter);
+        fab = view.findViewById(R.id.fab_add);
+        fab.setOnClickListener(v -> openEditor(PantryItem.NO_ID));
+        view.findViewById(R.id.empty_add_button).setOnClickListener(v -> openEditor(PantryItem.NO_ID));
 
         PantryViewModel viewModel = new ViewModelProvider(this).get(PantryViewModel.class);
         viewModel.getItems().observe(getViewLifecycleOwner(), this::render);
+    }
+
+    // Explicit Intent; the item id travels as an extra so the editor knows which row to load.
+    private void openEditor(long itemId) {
+        Intent intent = new Intent(requireContext(), AddEditItemActivity.class);
+        if (itemId != PantryItem.NO_ID) intent.putExtra(AddEditItemActivity.EXTRA_ITEM_ID, itemId);
+        editorLauncher.launch(intent);
+    }
+
+    private void onEditorResult(ActivityResult result) {
+        Intent data = result.getData();
+        if (result.getResultCode() != Activity.RESULT_OK || data == null) return;
+        String outcome = data.getStringExtra(AddEditItemActivity.EXTRA_RESULT);
+        int message = AddEditItemActivity.RESULT_DELETED.equals(outcome) ? R.string.snackbar_deleted
+                : AddEditItemActivity.RESULT_UPDATED.equals(outcome) ? R.string.snackbar_updated
+                : R.string.snackbar_added;
+        Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT).setAnchorView(fab).show();
     }
 
     private void render(List<PantryItem> items) {
