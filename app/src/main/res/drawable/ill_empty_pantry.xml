@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Empty pantry illustration: an empty jar with a leaf, drawn in theme colours so it adapts to dark mode. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="160dp"
+    android:height="160dp"
+    android:viewportWidth="160"
+    android:viewportHeight="160">
+    <path
+        android:fillColor="?attr/colorPrimaryContainer"
+        android:pathData="M80,8a72,72 0,1 1,0 144a72,72 0,1 1,0 -144z" />
+    <path
+        android:fillColor="?attr/colorPrimary"
+        android:pathData="M56,44h48a5,5 0,0 1,5 5v6a5,5 0,0 1,-5 5H56a5,5 0,0 1,-5 -5v-6a5,5 0,0 1,5 -5z" />
+    <path
+        android:fillColor="?attr/colorSurface"
+        android:strokeColor="?attr/colorPrimary"
+        android:strokeWidth="4"
+        android:pathData="M56,64h48a8,8 0,0 1,8 8v40a14,14 0,0 1,-14 14H62a14,14 0,0 1,-14 -14V72a8,8 0,0 1,8 -8z" />
+    <path
+        android:fillColor="?attr/colorPrimary"
+        android:pathData="M80,44c0,-14 10,-22 26,-22c0,14 -10,22 -26,22z" />
+    <path
+        android:strokeColor="?attr/colorOutline"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:pathData="M64,104h32M68,114h24" />
+</vector>
