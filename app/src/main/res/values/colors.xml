@@ -37,4 +37,8 @@
     <color name="chip_soon_text">#4A3500</color>
     <color name="chip_expired_bg">#FFDAD4</color>
     <color name="chip_expired_text">#8C1D00</color>
+
+    <!-- "Missing: Butter" pill on almost-there recipe cards. -->
+    <color name="missing_tag_bg">#FFDBD0</color>
+    <color name="missing_tag_text">#9C3112</color>
 </resources>

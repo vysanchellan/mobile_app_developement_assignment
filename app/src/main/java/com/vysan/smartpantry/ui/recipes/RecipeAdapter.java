@@ -104,8 +104,8 @@ public class RecipeAdapter extends ListAdapter<RecipeAdapter.Row, RecipeAdapter.
             holder.tag.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.chip_fresh_bg)));
         } else {
             holder.tag.setText(missingLabel(context, row));
-            holder.tag.setTextColor(ContextCompat.getColor(context, R.color.tomato_text));
-            holder.tag.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(context, android.R.color.transparent)));
+            holder.tag.setTextColor(ContextCompat.getColor(context, R.color.missing_tag_text));
+            holder.tag.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.missing_tag_bg)));
         }
     }
 
