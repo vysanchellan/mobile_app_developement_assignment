@@ -88,6 +88,11 @@
         <item quantity="one">%d ingredient</item>
         <item quantity="other">%d ingredients</item>
     </plurals>
+    <string name="recipes_empty_ready_title">No recipes match your pantry yet</string>
+    <string name="recipes_empty_ready_body">Add more ingredients. Recipes appear here only when you have everything they need.</string>
+    <string name="recipes_empty_almost_title">Nothing is one ingredient away</string>
+    <string name="recipes_empty_almost_body">Recipes that are short of just one ingredient will show up here.</string>
+    <string name="action_go_to_pantry">Go to pantry</string>
     <string name="tag_have_everything">You have everything</string>
     <string name="tag_missing">Missing: %s</string>
     <string name="tag_need_more">Need more: %1$s (%2$s %3$s)</string>

@@ -2,6 +2,7 @@ package com.vysan.smartpantry.ui.recipes;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +15,7 @@ import com.vysan.smartpantry.R;
 import com.vysan.smartpantry.data.model.AlmostThere;
 import com.vysan.smartpantry.data.model.Recipe;
 import com.vysan.smartpantry.logic.IngredientNormalizer;
+import com.vysan.smartpantry.ui.main.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +30,9 @@ public class SuggestedFragment extends Fragment {
     private RecipeAdapter adapter;
     private TabLayout tabs;
     private RecyclerView list;
+    private View emptyState;
+    private TextView emptyTitle;
+    private TextView emptyBody;
 
     public SuggestedFragment() {
         super(R.layout.fragment_recipes);
@@ -40,6 +45,12 @@ public class SuggestedFragment extends Fragment {
         list = view.findViewById(R.id.recipe_list);
         adapter = new RecipeAdapter(recipe -> RecipeDetailActivity.start(requireContext(), recipe.getId()));
         list.setAdapter(adapter);
+        emptyState = view.findViewById(R.id.recipes_empty);
+        emptyTitle = view.findViewById(R.id.recipes_empty_title);
+        emptyBody = view.findViewById(R.id.recipes_empty_body);
+        view.findViewById(R.id.recipes_empty_button).setOnClickListener(v -> {
+            if (requireActivity() instanceof MainActivity) ((MainActivity) requireActivity()).selectTab(R.id.nav_pantry);
+        });
 
         tabs = view.findViewById(R.id.tabs);
         tabs.addTab(tabs.newTab().setText(R.string.tab_ready));
@@ -72,7 +83,15 @@ public class SuggestedFragment extends Fragment {
         setTabCount(RecipesViewModel.TAB_ALMOST, R.string.tab_almost_count, result.almost.size());
 
         boolean readyTab = viewModel.getSelectedTab() == RecipesViewModel.TAB_READY;
-        adapter.submitList(readyTab ? readyRows(result.ready) : almostRows(result));
+        List<RecipeAdapter.Row> rows = readyTab ? readyRows(result.ready) : almostRows(result);
+        adapter.submitList(rows);
+
+        // Never a blank screen: an empty tab explains why and offers a way forward.
+        boolean empty = rows.isEmpty();
+        list.setVisibility(empty ? View.GONE : View.VISIBLE);
+        emptyState.setVisibility(empty ? View.VISIBLE : View.GONE);
+        emptyTitle.setText(readyTab ? R.string.recipes_empty_ready_title : R.string.recipes_empty_almost_title);
+        emptyBody.setText(readyTab ? R.string.recipes_empty_ready_body : R.string.recipes_empty_almost_body);
     }
 
     private void setTabCount(int index, int format, int count) {
