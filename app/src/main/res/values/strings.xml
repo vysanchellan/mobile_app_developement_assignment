@@ -38,6 +38,10 @@
         <item quantity="other">%d expired</item>
     </plurals>
 
+    <string name="action_search">Search pantry</string>
+    <string name="search_hint">Search ingredients</string>
+    <string name="search_empty_title">Nothing matches “%s”</string>
+    <string name="search_empty_body">Try a shorter word or check the spelling.</string>
     <string name="snackbar_added">Ingredient added</string>
     <string name="snackbar_updated">Ingredient updated</string>
     <string name="snackbar_deleted">Ingredient deleted</string>

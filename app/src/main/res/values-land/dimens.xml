@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Smaller illustrations in landscape so the empty-state text stays on screen. -->
+    <dimen name="empty_illustration">72dp</dimen>
+</resources>

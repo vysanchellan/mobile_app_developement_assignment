@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,11 +15,13 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.snackbar.Snackbar;
@@ -49,6 +52,9 @@ public class PantryFragment extends Fragment {
     private MaterialCardView banner;
     private TextView bannerText;
     private ImageView bannerIcon;
+    private TextView emptyTitle;
+    private TextView emptyBody;
+    private View emptyButton;
 
     public PantryFragment() {
         super(R.layout.fragment_pantry);
@@ -63,16 +69,21 @@ public class PantryFragment extends Fragment {
         banner = view.findViewById(R.id.summary_banner);
         bannerText = view.findViewById(R.id.summary_text);
         bannerIcon = view.findViewById(R.id.summary_icon);
+        emptyTitle = view.findViewById(R.id.empty_title);
+        emptyBody = view.findViewById(R.id.empty_body);
+        emptyButton = view.findViewById(R.id.empty_add_button);
 
         adapter = new PantryAdapter(prefs.getEffectiveSoonWindow());
         adapter.setOnItemClickListener(item -> openEditor(item.getId()));
         list.setAdapter(adapter);
         fab = view.findViewById(R.id.fab_add);
         fab.setOnClickListener(v -> openEditor(PantryItem.NO_ID));
-        view.findViewById(R.id.empty_add_button).setOnClickListener(v -> openEditor(PantryItem.NO_ID));
+        emptyButton.setOnClickListener(v -> openEditor(PantryItem.NO_ID));
 
         viewModel = new ViewModelProvider(this).get(PantryViewModel.class);
-        viewModel.getItems().observe(getViewLifecycleOwner(), this::render);
+        viewModel.getItems().observe(getViewLifecycleOwner(), items -> renderState());
+        viewModel.getVisibleItems().observe(getViewLifecycleOwner(), items -> renderState());
+        setupSearch(view.findViewById(R.id.toolbar));
         new ItemTouchHelper(new SwipeToDeleteCallback(requireContext(),
                 position -> deleteWithUndo(adapter.getItemAt(position)))).attachToRecyclerView(list);
     }
@@ -103,13 +114,48 @@ public class PantryFragment extends Fragment {
         Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT).setAnchorView(fab).show();
     }
 
-    private void render(List<PantryItem> items) {
-        adapter.submitList(items);
-        boolean empty = items.isEmpty();
-        list.setVisibility(empty ? View.GONE : View.VISIBLE);
-        emptyState.setVisibility(empty ? View.VISIBLE : View.GONE);
-        banner.setVisibility(empty ? View.GONE : View.VISIBLE);
-        renderBanner(items);
+    // The search lives in the toolbar; the query is kept in the ViewModel so rotation keeps it.
+    private void setupSearch(MaterialToolbar toolbar) {
+        toolbar.inflateMenu(R.menu.menu_pantry);
+        MenuItem searchItem = toolbar.getMenu().findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setQueryHint(getString(R.string.search_hint));
+        String current = viewModel.getQuery();
+        if (!current.isEmpty()) {
+            searchItem.expandActionView();
+            searchView.setQuery(current, false);
+        }
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchView.clearFocus();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                viewModel.setQuery(newText);
+                return true;
+            }
+        });
+    }
+
+    // Three states: empty pantry, search with no results, or the list itself.
+    private void renderState() {
+        List<PantryItem> all = viewModel.getItems().getValue();
+        List<PantryItem> visible = viewModel.getVisibleItems().getValue();
+        if (all == null || visible == null) return;
+        adapter.submitList(visible);
+        boolean pantryEmpty = all.isEmpty();
+        boolean showEmpty = visible.isEmpty();
+        list.setVisibility(showEmpty ? View.GONE : View.VISIBLE);
+        emptyState.setVisibility(showEmpty ? View.VISIBLE : View.GONE);
+        emptyTitle.setText(pantryEmpty ? getString(R.string.pantry_empty_title)
+                : getString(R.string.search_empty_title, viewModel.getQuery()));
+        emptyBody.setText(pantryEmpty ? R.string.pantry_empty_body : R.string.search_empty_body);
+        emptyButton.setVisibility(pantryEmpty ? View.VISIBLE : View.GONE);
+        banner.setVisibility(pantryEmpty ? View.GONE : View.VISIBLE);
+        renderBanner(all);
     }
 
     // "N items · M expiring soon"; highlighted in the tomato accent only when alerts are on.
