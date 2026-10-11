@@ -135,11 +135,16 @@ public class AddEditItemActivity extends AppCompatActivity {
         clearErrorOnEdit(nameLayout, nameInput);
         clearErrorOnEdit(quantityLayout, quantityInput);
         unitInput.setOnItemClickListener((parent, view, position, id) -> unitLayout.setError(null));
+        // The unit is picked from a list, so the keyboard would only hide the options.
+        unitInput.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) hideKeyboard(v);
+        });
 
         // Done on the quantity keyboard closes it and opens the unit list if no unit is chosen yet.
         quantityInput.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId != EditorInfo.IME_ACTION_DONE) return false;
             hideKeyboard(v);
+            v.clearFocus();
             if (text(unitInput).isEmpty()) unitInput.showDropDown();
             return true;
         });
@@ -329,6 +334,5 @@ public class AddEditItemActivity extends AppCompatActivity {
     private void hideKeyboard(View view) {
         InputMethodManager imm = getSystemService(InputMethodManager.class);
         if (imm != null) imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        view.clearFocus();
     }
 }
