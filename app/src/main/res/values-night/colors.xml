@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Dark palette: tonal surfaces with a lighter green so text and icons keep AA contrast. -->
+<resources>
+    <color name="primary">#8FD8B2</color>
+    <color name="on_primary">#003822</color>
+    <color name="primary_container">#0E5339</color>
+    <color name="on_primary_container">#B7EFD0</color>
+    <color name="secondary">#B4CCBB</color>
+    <color name="on_secondary">#203528</color>
+    <color name="secondary_container">#364B3E</color>
+    <color name="on_secondary_container">#D0E8D7</color>
+    <color name="tertiary">#FFB59E</color>
+    <color name="on_tertiary">#5E1700</color>
+    <color name="tertiary_container">#8C2A0A</color>
+    <color name="on_tertiary_container">#FFDBD0</color>
+    <color name="error">#FFB4AB</color>
+    <color name="on_error">#690005</color>
+    <color name="surface">#131411</color>
+    <color name="on_surface">#E4E2DC</color>
+    <color name="surface_variant">#46483F</color>
+    <color name="on_surface_variant">#C6C8BE</color>
+    <color name="outline">#909288</color>
+    <color name="outline_variant">#46483F</color>
+    <color name="surface_container_lowest">#0E0F0C</color>
+    <color name="surface_container_low">#1B1C19</color>
+    <color name="surface_container">#1F201D</color>
+    <color name="surface_container_high">#2A2B27</color>
+    <color name="surface_container_highest">#353532</color>
+
+    <color name="tomato_text">#FF8A65</color>
+
+    <color name="chip_fresh_bg">#1F4D35</color>
+    <color name="chip_fresh_text">#D0E8D7</color>
+    <color name="chip_soon_bg">#5C4300</color>
+    <color name="chip_soon_text">#FFE08A</color>
+    <color name="chip_expired_bg">#8C1D00</color>
+    <color name="chip_expired_text">#FFDAD4</color>
+</resources>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Light palette: herb green primary, tomato accent for urgency, soft cream surfaces. -->
+<resources>
+    <color name="primary">#2E7D5B</color>
+    <color name="on_primary">#FFFFFF</color>
+    <color name="primary_container">#B7EFD0</color>
+    <color name="on_primary_container">#00210F</color>
+    <color name="secondary">#4E6356</color>
+    <color name="on_secondary">#FFFFFF</color>
+    <color name="secondary_container">#D0E8D7</color>
+    <color name="on_secondary_container">#0B1F14</color>
+    <color name="tertiary">#B23A17</color>
+    <color name="on_tertiary">#FFFFFF</color>
+    <color name="tertiary_container">#FFDBD0</color>
+    <color name="on_tertiary_container">#3A0B00</color>
+    <color name="error">#BA1A1A</color>
+    <color name="on_error">#FFFFFF</color>
+    <color name="surface">#FAF7F2</color>
+    <color name="on_surface">#1B1C19</color>
+    <color name="surface_variant">#E3E3DA</color>
+    <color name="on_surface_variant">#46483F</color>
+    <color name="outline">#76786E</color>
+    <color name="outline_variant">#C6C8BE</color>
+    <color name="surface_container_lowest">#FFFFFF</color>
+    <color name="surface_container_low">#F5F1EA</color>
+    <color name="surface_container">#EFEBE4</color>
+    <color name="surface_container_high">#E9E5DE</color>
+    <color name="surface_container_highest">#E3DFD8</color>
+
+    <!-- Brand tomato (#E4572E) darkened for text so it passes AA contrast on cream. -->
+    <color name="tomato_text">#B23A17</color>
+
+    <!-- Expiry chip states: background and text pairs chosen for AA contrast. -->
+    <color name="chip_fresh_bg">#D0E8D7</color>
+    <color name="chip_fresh_text">#0B3D24</color>
+    <color name="chip_soon_bg">#FFE08A</color>
+    <color name="chip_soon_text">#4A3500</color>
+    <color name="chip_expired_bg">#FFDAD4</color>
+    <color name="chip_expired_text">#8C1D00</color>
+</resources>
