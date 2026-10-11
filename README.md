@@ -23,11 +23,15 @@ Repository: <https://github.com/vysanchellan/mobile_app_developement_assignment>
 
 ## Screenshots
 
-> Add your own screenshots from the emulator here (see `docs/SCREENSHOT_CHECKLIST.md`).
+All taken on a Pixel emulator (Android 14). Every screenshot is in [`screenshots/`](screenshots).
 
-| Pantry | Add ingredient | Ready to cook | Recipe detail |
+| Pantry | Add ingredient | Ready to cook | Almost there |
 |---|---|---|---|
-| _screenshot_ | _screenshot_ | _screenshot_ | _screenshot_ |
+| ![Pantry list](screenshots/08_pantry_list.png) | ![Add form](screenshots/03_add_form.png) | ![Ready to cook](screenshots/12_ready_to_cook.png) | ![Almost there](screenshots/13_almost_there.png) |
+
+| Recipe detail | Validation | Settings | Dark mode |
+|---|---|---|---|
+| ![Recipe detail](screenshots/14_recipe_detail.png) | ![Validation errors](screenshots/04_error_empty_fields.png) | ![Settings](screenshots/15_settings.png) | ![Dark mode](screenshots/16_dark_mode_pantry.png) |
 
 ## Why SQLite?
 
