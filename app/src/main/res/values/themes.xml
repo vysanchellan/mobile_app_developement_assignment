@@ -40,4 +40,11 @@
         <item name="cardBackgroundColor">@color/surface_container_low</item>
         <item name="cardCornerRadius">@dimen/corner_card</item>
     </style>
+
+    <!-- Read-only information chip (time, servings) on the recipe detail screen. -->
+    <style name="Widget.SmartPantry.InfoChip" parent="Widget.Material3.Chip.Assist">
+        <item name="android:clickable">false</item>
+        <item name="android:focusable">false</item>
+        <item name="chipIconTint">?attr/colorPrimary</item>
+    </style>
 </resources>

@@ -12,4 +12,6 @@
     <dimen name="touch_target">48dp</dimen>
     <dimen name="empty_illustration">160dp</dimen>
     <dimen name="list_bottom_padding">96dp</dimen>
+    <dimen name="detail_header_height">200dp</dimen>
+    <dimen name="detail_header_icon">96dp</dimen>
 </resources>

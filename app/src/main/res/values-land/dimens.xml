@@ -2,4 +2,6 @@
 <resources>
     <!-- Smaller illustrations in landscape so the empty-state text stays on screen. -->
     <dimen name="empty_illustration">72dp</dimen>
+    <dimen name="detail_header_height">128dp</dimen>
+    <dimen name="detail_header_icon">64dp</dimen>
 </resources>

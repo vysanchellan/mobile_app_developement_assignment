@@ -78,6 +78,38 @@
     <string name="dialog_discard_title">Discard changes?</string>
     <string name="dialog_discard_message">Your changes to this ingredient will be lost.</string>
 
+    <!-- Recipes -->
+    <string name="tab_ready">Ready to cook</string>
+    <string name="tab_almost">Almost there</string>
+    <string name="tab_ready_count">Ready to cook (%d)</string>
+    <string name="tab_almost_count">Almost there (%d)</string>
+    <string name="recipe_meta">%1$d min · Serves %2$d · %3$s</string>
+    <plurals name="ingredient_count">
+        <item quantity="one">%d ingredient</item>
+        <item quantity="other">%d ingredients</item>
+    </plurals>
+    <string name="tag_have_everything">You have everything</string>
+    <string name="tag_missing">Missing: %s</string>
+    <string name="tag_need_more">Need more: %1$s (%2$s %3$s)</string>
+
+    <!-- Recipe detail -->
+    <string name="recipe_missing">This recipe could not be found</string>
+    <string name="chip_minutes">%d min</string>
+    <plurals name="chip_servings">
+        <item quantity="one">Serves %d</item>
+        <item quantity="other">Serves %d</item>
+    </plurals>
+    <string name="detail_ready">You have everything for this recipe</string>
+    <plurals name="detail_missing_count">
+        <item quantity="one">Missing %d ingredient</item>
+        <item quantity="other">Missing %d ingredients</item>
+    </plurals>
+    <string name="detail_have">In your pantry</string>
+    <string name="detail_missing">Not enough in your pantry</string>
+    <string name="detail_ingredient">%1$s %2$s %3$s</string>
+    <string name="detail_ingredients">Ingredients</string>
+    <string name="detail_method">Method</string>
+
     <!-- Expiry chips -->
     <string name="chip_expired">Expired</string>
     <string name="chip_today">Expires today</string>
