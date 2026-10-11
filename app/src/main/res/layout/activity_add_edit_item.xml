@@ -106,6 +106,7 @@
                 app:endIconContentDescription="@string/field_expiry_clear"
                 app:endIconDrawable="@drawable/ic_close"
                 app:endIconMode="custom"
+                app:errorIconDrawable="@null"
                 app:helperText="@string/field_expiry_helper"
                 app:startIconContentDescription="@string/field_expiry_pick"
                 app:startIconDrawable="@drawable/ic_calendar">

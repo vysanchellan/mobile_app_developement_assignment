@@ -153,6 +153,7 @@ public class AddEditItemActivity extends AppCompatActivity {
         expiryLayout.setStartIconOnClickListener(v -> showDatePicker());
         expiryLayout.setEndIconOnClickListener(v -> {
             expiryIso = null;
+            expiryLayout.setError(null);
             renderExpiry();
         });
         reattachDatePicker();
