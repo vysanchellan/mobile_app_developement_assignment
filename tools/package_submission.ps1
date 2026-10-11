@@ -5,14 +5,15 @@
 .DESCRIPTION
     Creates submission\{STUDENTNUMBER}_{SURNAME}_MobileAppDev700_Assignment.zip containing
     - the full project source (only files tracked by git, so build/, .gradle/, .idea/ and
-      local.properties are never included),
+      local.properties are never included; the video script and report draft are left out),
+    - a Screenshots folder with every app screenshot from screenshots/,
     - the video, renamed {STUDENTNUMBER}_{SURNAME}_MobileAppDev700_Video.<ext>,
     - the report, renamed {STUDENTNUMBER}_{SURNAME}_MobileAppDev700_Assignment.<docx|pdf>.
     Prints the final size and fails if it is over 50 MB.
 
 .EXAMPLE
     powershell -ExecutionPolicy Bypass -File tools\package_submission.ps1 `
-        -StudentNumber 402012345 -Surname Chellan -Video C:\rec\final.mp4 -Report C:\docs\report.docx
+        -StudentNumber 402111356 -Surname Chellan -Video C:\rec\final.mp4 -Report C:\docs\report.docx
 #>
 param(
     [string]$StudentNumber,
@@ -58,12 +59,19 @@ try {
 } finally {
     Pop-Location
 }
+# Working notes for the student, not part of the submission.
+$excluded = @('docs/VIDEO_SCRIPT.md', 'docs/REPORT_DRAFT.md')
+$files = $files | Where-Object { $excluded -notcontains $_ }
 foreach ($file in $files) {
     $source = Join-Path $root $file
     $target = Join-Path (Join-Path $staging 'SmartPantryManager') $file
     New-Item -ItemType Directory -Force (Split-Path -Parent $target) | Out-Null
     Copy-Item -LiteralPath $source -Destination $target
 }
+
+$shots = Join-Path $staging 'Screenshots'
+New-Item -ItemType Directory -Force $shots | Out-Null
+Copy-Item -Path (Join-Path $root 'screenshots\*.png') -Destination $shots
 
 Copy-Item -LiteralPath $Video -Destination (Join-Path $staging ("${base}_Video" + [IO.Path]::GetExtension($Video)))
 Copy-Item -LiteralPath $Report -Destination (Join-Path $staging ("${base}_Assignment" + $reportExt))
