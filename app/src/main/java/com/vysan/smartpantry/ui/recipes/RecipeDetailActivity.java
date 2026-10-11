@@ -6,13 +6,13 @@ import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.widget.TextViewCompat;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -23,6 +23,7 @@ import com.vysan.smartpantry.data.model.Recipe;
 import com.vysan.smartpantry.data.model.RecipeIngredient;
 import com.vysan.smartpantry.data.repo.PantryRepository;
 import com.vysan.smartpantry.logic.RecipeMatcher;
+import com.vysan.smartpantry.ui.common.ClickGuard;
 import com.vysan.smartpantry.ui.common.Format;
 
 import java.util.List;
@@ -42,6 +43,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
     /** Builds the explicit Intent that opens this screen for one recipe. */
     public static void start(Context context, long recipeId) {
+        if (!ClickGuard.allow()) return;
         context.startActivity(new Intent(context, RecipeDetailActivity.class).putExtra(EXTRA_RECIPE_ID, recipeId));
     }
 
@@ -97,7 +99,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         }
         status.setTextColor(ContextCompat.getColor(this, ready ? R.color.chip_fresh_text : R.color.tomato_text));
         status.setCompoundDrawablesRelativeWithIntrinsicBounds(ready ? R.drawable.ic_check_circle : R.drawable.ic_warning, 0, 0, 0);
-        status.setCompoundDrawableTintList(ColorStateList.valueOf(status.getCurrentTextColor()));
+        TextViewCompat.setCompoundDrawableTintList(status, ColorStateList.valueOf(status.getCurrentTextColor()));
     }
 
     // One row per ingredient: green tick when the pantry covers it, tomato cross when it does not.
@@ -106,15 +108,16 @@ public class RecipeDetailActivity extends AppCompatActivity {
         container.removeAllViews();
         LayoutInflater inflater = LayoutInflater.from(this);
         for (RecipeIngredient ingredient : recipe.getIngredients()) {
-            View row = inflater.inflate(R.layout.item_detail_ingredient, container, false);
+            TextView row = (TextView) inflater.inflate(R.layout.item_detail_ingredient, container, false);
             boolean have = !missing.contains(ingredient);
-            ImageView icon = row.findViewById(R.id.ingredient_icon);
-            icon.setImageResource(have ? R.drawable.ic_check_circle : R.drawable.ic_cancel);
-            icon.setImageTintList(ColorStateList.valueOf(
+            String line = getString(R.string.detail_ingredient,
+                    Format.quantity(ingredient.getQuantity()), ingredient.getUnit(), ingredient.getName());
+            row.setText(line);
+            row.setCompoundDrawablesRelativeWithIntrinsicBounds(have ? R.drawable.ic_check_circle : R.drawable.ic_cancel, 0, 0, 0);
+            TextViewCompat.setCompoundDrawableTintList(row, ColorStateList.valueOf(
                     ContextCompat.getColor(this, have ? R.color.primary : R.color.tomato_text)));
-            icon.setContentDescription(getString(have ? R.string.detail_have : R.string.detail_missing));
-            ((TextView) row.findViewById(R.id.ingredient_text)).setText(getString(R.string.detail_ingredient,
-                    Format.quantity(ingredient.getQuantity()), ingredient.getUnit(), ingredient.getName()));
+            // The icon carries meaning, so screen readers hear it as part of the line.
+            row.setContentDescription(getString(have ? R.string.detail_have : R.string.detail_missing) + ": " + line);
             container.addView(row);
         }
     }

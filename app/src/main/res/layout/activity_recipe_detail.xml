@@ -108,6 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_l"
                 android:accessibilityHeading="true"
+                tools:targetApi="28"
                 android:text="@string/detail_ingredients"
                 android:textAppearance="?attr/textAppearanceTitleLarge"
                 android:textStyle="bold" />
@@ -124,6 +125,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_l"
                 android:accessibilityHeading="true"
+                tools:targetApi="28"
                 android:text="@string/detail_method"
                 android:textAppearance="?attr/textAppearanceTitleLarge"
                 android:textStyle="bold" />

@@ -7,7 +7,6 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResult;
@@ -16,6 +15,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.widget.TextViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -28,6 +28,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.vysan.smartpantry.R;
 import com.vysan.smartpantry.data.model.PantryItem;
 import com.vysan.smartpantry.logic.ExpiryHelper;
+import com.vysan.smartpantry.ui.common.ClickGuard;
 import com.vysan.smartpantry.ui.settings.Prefs;
 
 import java.time.LocalDate;
@@ -51,7 +52,6 @@ public class PantryFragment extends Fragment {
     private View emptyState;
     private MaterialCardView banner;
     private TextView bannerText;
-    private ImageView bannerIcon;
     private TextView emptyTitle;
     private TextView emptyBody;
     private View emptyButton;
@@ -68,7 +68,6 @@ public class PantryFragment extends Fragment {
         emptyState = view.findViewById(R.id.empty_state);
         banner = view.findViewById(R.id.summary_banner);
         bannerText = view.findViewById(R.id.summary_text);
-        bannerIcon = view.findViewById(R.id.summary_icon);
         emptyTitle = view.findViewById(R.id.empty_title);
         emptyBody = view.findViewById(R.id.empty_body);
         emptyButton = view.findViewById(R.id.empty_add_button);
@@ -99,6 +98,7 @@ public class PantryFragment extends Fragment {
 
     // Explicit Intent; the item id travels as an extra so the editor knows which row to load.
     private void openEditor(long itemId) {
+        if (!ClickGuard.allow()) return;
         Intent intent = new Intent(requireContext(), AddEditItemActivity.class);
         if (itemId != PantryItem.NO_ID) intent.putExtra(AddEditItemActivity.EXTRA_ITEM_ID, itemId);
         editorLauncher.launch(intent);
@@ -190,7 +190,7 @@ public class PantryFragment extends Fragment {
                 : com.google.android.material.R.attr.colorOnSecondaryContainer);
         banner.setCardBackgroundColor(background);
         bannerText.setTextColor(foreground);
-        bannerIcon.setImageResource(highlight ? R.drawable.ic_warning : R.drawable.ic_info);
-        bannerIcon.setImageTintList(ColorStateList.valueOf(foreground));
+        bannerText.setCompoundDrawablesRelativeWithIntrinsicBounds(highlight ? R.drawable.ic_warning : R.drawable.ic_info, 0, 0, 0);
+        TextViewCompat.setCompoundDrawableTintList(bannerText, ColorStateList.valueOf(foreground));
     }
 }

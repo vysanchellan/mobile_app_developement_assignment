@@ -5,7 +5,6 @@
     <dimen name="space_s">8dp</dimen>
     <dimen name="space_m">16dp</dimen>
     <dimen name="space_l">24dp</dimen>
-    <dimen name="space_xl">32dp</dimen>
     <dimen name="screen_margin">16dp</dimen>
     <dimen name="corner_card">16dp</dimen>
     <dimen name="corner_tag">12dp</dimen>

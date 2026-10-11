@@ -37,31 +37,17 @@
             app:cardBackgroundColor="?attr/colorSecondaryContainer"
             tools:visibility="visible">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/summary_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/space_m"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="@dimen/space_m">
-
-                <ImageView
-                    android:id="@+id/summary_icon"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:importantForAccessibility="no"
-                    android:src="@drawable/ic_info"
-                    app:tint="?attr/colorOnSecondaryContainer" />
-
-                <TextView
-                    android:id="@+id/summary_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/space_m"
-                    android:layout_weight="1"
-                    android:textAppearance="?attr/textAppearanceBodyLarge"
-                    android:textColor="?attr/colorOnSecondaryContainer"
-                    tools:text="4 items · 1 expiring soon" />
-            </LinearLayout>
+                android:padding="@dimen/space_m"
+                android:textAppearance="?attr/textAppearanceBodyLarge"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                app:drawableStartCompat="@drawable/ic_info"
+                tools:text="4 items · 1 expiring soon" />
         </com.google.android.material.card.MaterialCardView>
 
         <FrameLayout
